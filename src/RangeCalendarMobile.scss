@@ -35,32 +35,6 @@ $andes-theme: 'mercadopago';
       margin: 0 16px;
     
       width: calc(100% - 32px);
-  
-      .andes-datepicker__day-cell.andes-datepicker__range-primary--start.andes-datepicker__day-cell--selected {
-        display: inline-flex;
-        align-items: center;
-        background: linear-gradient(0deg, #fff 10%, rgba(65, 137, 230, 0.1) 0, rgba(65, 137, 230, 0.1) 90%, #fff 0);
-        border-radius: 32px 0 0 32px;
-  
-        span::before {
-          display: none;
-        }
-      }
-  
-      .andes-datepicker__day-cell.andes-datepicker__range-primary--end.andes-datepicker__day-cell--selected {
-        display: inline-flex;
-        background: linear-gradient(0deg, #fff 10%, rgba(65, 137, 230, 0.1) 0, rgba(65, 137, 230, 0.1) 90%, #fff 0);
-        border-radius: 0 32px 32px 0;
-        align-items: center;
-  
-        span {
-          margin-left: auto;
-        }
-  
-        span::before {
-          display: none;
-        }
-      }
     }
   
     &__input {
@@ -83,7 +57,7 @@ $andes-theme: 'mercadopago';
     background-color: white;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.15), 0 -2px 10px 0 rgba(0, 0, 0, 0.07);
     display: flex;
-    height: 64px;
+    height: 48px;
     position: absolute;
     bottom: 0%;
     padding: 16px 20px;

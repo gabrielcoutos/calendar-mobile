@@ -60,8 +60,8 @@ export default class RangeCalendarMobile extends Component {
     return (
       <div className="filter-mobile-wrapper">
         <div className="filter-mobile-wrapper__title"></div>
-
         <div className="filter-mobile-wrapper__content">
+      
           <div className="filter-mobile-wrapper__input">
             {/* <span>{this.getInputStatus()}</span> 
             <CalendarIcon width={20} height={21} viewBox="0 0 20 21" />

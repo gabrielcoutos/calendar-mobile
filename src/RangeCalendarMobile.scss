@@ -4,6 +4,8 @@ $andes-theme: 'mercadopago';
 
 .filter-mobile-wrapper {
     height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
     .andes-datepicker {
         background-color: #fff;
         border-radius: 6px;
@@ -30,8 +32,9 @@ $andes-theme: 'mercadopago';
   
     &__content {
       flex: 1 0 auto;
-      padding: 0 16px;
-      width: 100%;
+      margin: 0 16px;
+    
+      width: calc(100% - 32px);
   
       .andes-datepicker__day-cell.andes-datepicker__range-primary--start.andes-datepicker__day-cell--selected {
         display: inline-flex;
@@ -84,9 +87,10 @@ $andes-theme: 'mercadopago';
     display: flex;
     height: 64px;
     position: absolute;
+    bottom: 0%;
     padding: 16px 20px;
-    bottom: 8px;
     width: 100%;
+    max-width: calc(100% - 40px);
     z-index: 1;
   
     button:first-of-type {

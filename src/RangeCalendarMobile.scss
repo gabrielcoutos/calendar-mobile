@@ -1,0 +1,96 @@
+$andes-theme: 'mercadopago';
+@import '@andes/datepicker/index';
+@import '~@andes/button/index';
+
+.filter-mobile-wrapper {
+    height: 100%;
+    .andes-datepicker {
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.1);
+        margin-top: 12px;
+        padding: 32px 24px 24px 24px;
+        max-width: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        &__button-wrapper {
+          display: none;
+        }
+      }
+  
+    &__title {
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 18px;
+      font-weight: 600;
+      padding: 16px 20px;
+      width: 100%;
+    }
+  
+    &__content {
+      flex: 1 0 auto;
+      padding: 0 16px;
+      width: 100%;
+  
+      .andes-datepicker__day-cell.andes-datepicker__range-primary--start.andes-datepicker__day-cell--selected {
+        display: inline-flex;
+        width: calc(50% + 16px);
+        align-items: center;
+        background: linear-gradient(0deg, #fff 10%, rgba(65, 137, 230, 0.1) 0, rgba(65, 137, 230, 0.1) 90%, #fff 0);
+        border-radius: 32px 0 0 32px;
+  
+        span::before {
+          display: none;
+        }
+      }
+  
+      .andes-datepicker__day-cell.andes-datepicker__range-primary--end.andes-datepicker__day-cell--selected {
+        display: inline-flex;
+        background: linear-gradient(0deg, #fff 10%, rgba(65, 137, 230, 0.1) 0, rgba(65, 137, 230, 0.1) 90%, #fff 0);
+        width: calc(50% + 16px);
+        border-radius: 0 32px 32px 0;
+        align-items: center;
+  
+        span {
+          margin-left: auto;
+        }
+  
+        span::before {
+          display: none;
+        }
+      }
+    }
+  
+    &__input {
+      background-color: #fff;
+      border-radius: 6px;
+      border: solid 1px rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      font-size: 16px;
+      justify-content: space-between;
+      padding: 13px 12px;
+    }
+  }
+
+  .andes-visually-hidden {
+      display: none;
+  }
+
+  .filter-mobile-footer {
+    background-color: white;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.15), 0 -2px 10px 0 rgba(0, 0, 0, 0.07);
+    display: flex;
+    height: 64px;
+    position: absolute;
+    padding: 16px 20px;
+    bottom: 8px;
+    width: 100%;
+    z-index: 1;
+  
+    button:first-of-type {
+      margin-right: 8px;
+    }
+
+  }

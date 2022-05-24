@@ -1,95 +1,110 @@
-const React = require('react');
+import React, {Component} from "react";
+import './RangeCalendarMobile.scss';
 const PropTypes = require('prop-types');
+const moment = require('moment');
 const { InputDatePicker } = require('@andes/datepicker');
-
-const buildSelectedDays = (dateFrom, dateTo) => (
-  { from: dateFrom, to: dateTo }
-);
-
-const getShortLocale = (locale) => (
-  locale.includes('-') ? locale.split('-')[0] : locale.split('_')[0]
-);
+const Button = require('@andes/button');
+const { ButtonText } = Button;
 
 /**
-* Components
-*/
-export default class DatePicker extends React.Component {
+ * Constants
+ */
+ const FORMAT_FILTER_DATE = 'YYYY-MM-DD';
+
+export default class RangeCalendarMobile extends Component {
   constructor(props) {
-    super(props);
-    this.container = React.createRef();
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.pressEscToClose = this.pressEscToClose.bind(this);
-  }
-
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleDocumentClick);
-    document.addEventListener('keydown', this.pressEscToClose, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleDocumentClick);
-    document.removeEventListener('keydown', this.pressEscToClose, false);
-  }
-
-  pressEscToClose(event) {
-    if (this.props.onClose) {
-      if (event.keyCode === 27) { // esc key
-        this.props.onClose(event);
-      }
+    super(props)
+    const { dateFrom, dateTo } = props;
+    this.state = {
+      dateFrom: dateFrom || '',
+      dateTo: dateTo || ''
     }
+
+    this.handlerOnRangeChange = this.handlerOnRangeChange.bind(this);
   }
 
-  handleDocumentClick(event) {
-    const { show, onClose } = this.props;
-    if (show && onClose) {
-      if (this.container && this.container.current &&
-        !this.container.current.contains(event.target)) {
-        this.props.onClose();
-      }
+  handlerOnRangeChange(selectedDays, resetSelectDays) {
+    const { from, to } = selectedDays;
+    console.log(selectedDays)
+
+    this.setState({
+      dateFrom: moment(from).format(FORMAT_FILTER_DATE),
+      dateTo: moment(to).format(FORMAT_FILTER_DATE),
+    });
+  }
+
+  getInitialMonth(dateFrom, dateTo) {
+    const selectedDays = this.getSelectedDays(dateFrom, dateTo);
+
+    return selectedDays ? selectedDays.from : null;
+  }
+
+  getSelectedDays(dateFrom, dateTo) {
+    const from = moment(dateFrom, FORMAT_FILTER_DATE);
+    const to = moment(dateTo, FORMAT_FILTER_DATE);
+
+    if (!from.isValid() || !to.isValid()) {
+      return null;
     }
+
+    return {
+      from: from.toDate(),
+      to: to.toDate(),
+    };
   }
 
   render() {
-    const { show, dateFrom, dateTo, locale, label, onSubmit } = this.props;
-    const shortLocale = locale && getShortLocale(locale);
-    const today = new Date()
-    const yearAgo = new Date()
-    yearAgo.setFullYear(today.getFullYear())
-    const selectedDays = buildSelectedDays(dateFrom, dateTo);
-
+    const { dateFrom, dateTo } = this.state
+    const today = moment();
+    const yearAgo = moment().subtract(1, 'year');
     return (
-      show && (
-        <div ref={this.container} className="period-picker">
+      <div className="filter-mobile-wrapper">
+        <div className="filter-mobile-wrapper__title"></div>
+
+        <div className="filter-mobile-wrapper__content">
+          <div className="filter-mobile-wrapper__input">
+            {/* <span>{this.getInputStatus()}</span> 
+            <CalendarIcon width={20} height={21} viewBox="0 0 20 21" />
+            */}
+          </div>
+
           <InputDatePicker
+            locale="pt"
             displayMode="inline"
-            fromMonth={yearAgo}
-            toMonth={today}
-            initialMonth={(dateTo && dateTo) || today}
-            locale={shortLocale}
             selectionType="range"
-            onSubmit={onSubmit}
-            label={label}
-            selectedDays={selectedDays}
+            fixedWeeks
+            disableSubmitButton
+            onSubmit={null}
+            onRangeChange={this.handlerOnRangeChange}
+            fromMonth={yearAgo.toDate()}
+            toMonth={today.toDate()}
+            initialMonth={this.getInitialMonth(dateFrom, dateTo)}
+            selectedDays={this.getSelectedDays(dateFrom, dateTo)}
           />
         </div>
-      )
-    );
-  };
+
+        <div className="filter-mobile-footer">
+        <Button
+           onClick={null}
+           disabled={null}
+           size="medium"
+           fullWidth>
+             <ButtonText>cancelar</ButtonText>
+
+          </Button>
+
+          <Button
+           onClick={null}
+           disabled={null}
+           size="medium"
+           fullWidth>
+             <ButtonText>aplicar</ButtonText>
+
+          </Button>
+       
+
+        </div>
+      </div>
+    )
+  }
 }
-
-DatePicker.defaultProps = {
-  show: false,
-  dateFrom: null,
-  dateTo: null,
-  label: '',
-};
-
-DatePicker.propTypes = {
-  show: PropTypes.bool,
-  dateFrom: PropTypes.instanceOf(Date),
-  dateTo: PropTypes.instanceOf(Date),
-  locale: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-};

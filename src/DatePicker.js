@@ -21,6 +21,7 @@ export default class RangeCalendarMobile extends Component {
     }
 
     this.handlerOnRangeChange = this.handlerOnRangeChange.bind(this);
+    this.onApplyHandler = this.onApplyHandler.bind(this);
   }
 
   handlerOnRangeChange(selectedDays, resetSelectDays) {
@@ -37,6 +38,13 @@ export default class RangeCalendarMobile extends Component {
     const selectedDays = this.getSelectedDays(dateFrom, dateTo);
 
     return selectedDays ? selectedDays.from : null;
+  }
+
+  onApplyHandler() {
+    const { dateFrom, dateTo } = this.state
+    if (window.Android) {
+      window.Android.showDate(dateFrom, dateTo)
+    }
   }
 
   getSelectedDays(dateFrom, dateTo) {
@@ -94,7 +102,7 @@ export default class RangeCalendarMobile extends Component {
           </Button>
 
           <Button
-           onClick={null}
+           onClick={this.onApplyHandler}
            disabled={null}
            size="medium"
            fullWidth>
